@@ -53,8 +53,15 @@ contract Proxy {
         _setImplementation(_implementation);
     }
 
-    function proxyOwner() external view returns (address) {
-        return _getAdmin();
+    function proxyOwner() external returns (address) {
+        address admin = _getAdmin();
+
+        if(msg.sender == admin) {
+          return _getAdmin();
+        } else {
+          _delegate(_getImplementation());
+          return address(0);
+        }
     }
 
     function implementation() external view returns (address) {
